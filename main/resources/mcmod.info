@@ -1,0 +1,16 @@
+[
+{
+  "modid": "dungeonmastery",
+  "name": "Dungeon Mastery",
+  "description": "Roll d20!",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Fingersome"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
