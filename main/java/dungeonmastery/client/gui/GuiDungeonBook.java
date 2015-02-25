@@ -1,7 +1,11 @@
 package dungeonmastery.client.gui;
 
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
@@ -24,15 +28,37 @@ public class GuiDungeonBook extends GuiContainer
 		super(new ContainerDungeonBook(invPlayer, world, x, y, z));
 	}
 
-
+	@Override
+	public void initGui()
+	{
+		super.initGui();
+		buttonList.clear();
+		buttonList.add(new GuiButton(0, guiLeft + 48, guiTop + 10, 80, 20, "Dragonborn"));
+		buttonList.add(new GuiButton(1, guiLeft + 48, guiTop + 30, 80, 20, "Dwarf"));
+		buttonList.add(new GuiButton(2, guiLeft + 48, guiTop + 50, 80, 20, "Eladrin"));
+		buttonList.add(new GuiButton(3, guiLeft + 48, guiTop + 70, 80, 20, "Elf"));
+		buttonList.add(new GuiButton(4, guiLeft + 48, guiTop + 90, 80, 20, "Half-elf"));
+		buttonList.add(new GuiButton(5, guiLeft + 48, guiTop + 110, 80, 20, "Halfling"));
+		buttonList.add(new GuiButton(6, guiLeft + 48, guiTop + 130, 80, 20, "Human"));
+		buttonList.add(new GuiButton(7, guiLeft + 48, guiTop + 150, 80, 20, "Tiefling"));
+	}
+	
+	
+	protected void actionPerformed(GuiButton button, EntityPlayer player)
+	{
+		switch(button.id)
+		{
+			case 0: player.addChatComponentMessage(new ChatComponentText("dragonborn selected"));
+			case 1: return;
+			case 2: return;
+			default: return;
+		}
+	}
+	
 	@Override
 	protected void drawGuiContainerForegroundLayer(int i, int j)
 	{
-		this.fontRendererObj.drawString("Create a Character", 40, -10, 0x990000);
-
-		this.fontRendererObj.drawString("Choose a Name:", 10, 10, 0x000000);
-		this.fontRendererObj.drawString("Choose a Race:", 10, 30, 0x000000);
-		this.fontRendererObj.drawString("Choose a Class:", 10, 50, 0x000000);
+		fontRendererObj.drawString("Choose a Race", 52, -10, 0x990000);
 	}
 	
 	
