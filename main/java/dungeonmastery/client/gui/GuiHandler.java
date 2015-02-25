@@ -22,8 +22,7 @@ public class GuiHandler implements IGuiHandler
 	{
 		switch(ID) 
 		{
-			case 0:
-				return new ContainerDungeonBook(player.inventory, world, x, y, z);
+		case 0: return new ContainerDungeonBook(player.inventory, world, x, y, z);
 		}
 		
 		return null;
@@ -34,8 +33,7 @@ public class GuiHandler implements IGuiHandler
 	{
 		switch(ID) 
 		{
-			case 0:
-				return new GuiDungeonBook(player.inventory, world, x, y, z);
+		case 0: return new GuiCreate(player.inventory, world, x, y, z);
 		}
 
 		return null;
