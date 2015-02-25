@@ -28,7 +28,11 @@ public class GuiDungeonBook extends GuiContainer
 	@Override
 	protected void drawGuiContainerForegroundLayer(int i, int j)
 	{
-		this.fontRendererObj.drawString("Create a Character", 10, 5, 0x990000);
+		this.fontRendererObj.drawString("Create a Character", 40, -10, 0x990000);
+
+		this.fontRendererObj.drawString("Choose a Name:", 10, 10, 0x000000);
+		this.fontRendererObj.drawString("Choose a Race:", 10, 30, 0x000000);
+		this.fontRendererObj.drawString("Choose a Class:", 10, 50, 0x000000);
 	}
 	
 	
