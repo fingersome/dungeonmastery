@@ -15,20 +15,17 @@ import dungeonmastery.ModInfo;
 public class ItemList
 {
 	//DECLARE ITEMS
-	
+
 	public static Item itemDungeonBook;
+	public static Item itemSoul;
 	
 	
 	public static void Init()
 	{
 		//INITIALISE ITEMS
 		itemDungeonBook = new ItemDungeonBook().setUnlocalizedName(ModInfo.MODID + "." + ItemInfo.ITEM_DUNGEON_BOOK_UNLOCALIZED).setCreativeTab(DungeonMastery.tabdungeon);
+		itemSoul = new ItemSoul().setUnlocalizedName(ModInfo.MODID + "." + ItemInfo.ITEM_SOUL_UNLOCALIZED).setCreativeTab(DungeonMastery.tabdungeon);
 		
-	}
-	
-	public void renderTextures() 
-	{
-	
 	}
 	
 	public static void RegisterRecipes()

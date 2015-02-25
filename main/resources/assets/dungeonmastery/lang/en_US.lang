@@ -11,7 +11,8 @@ tile.blockdungeonblock.name=Dungeon Block
 #
 #
 # Items
-item.dungeonmastery.itemDungeonBook.name=Dungeon Book
+item.dungeonmastery.itemDungeonBook.name=Old Book
+item.dungeonmastery.itemSoul.name=Soul Wisp
 #
 #
 # Fluids

@@ -24,21 +24,25 @@ public class GuiCreate extends GuiContainer
 	
 	private ResourceLocation texture = new ResourceLocation(ModInfo.MODID + ":" + "textures/gui/guiPage.png");
 	
-	
-	public String chosenClass;
+	//holds race & class strings for display
 	public String chosenRace;
+	public String chosenClass;
 	
 	//holds starting value for skills
-	public int attStr = 10;
-	public int attDex = 10;
-	public int attCon = 10;
-	public int attInt = 10;
-	public int attWis = 10;
-	public int attCha = 10;
+	public int attStr;
+	public int attDex;
+	public int attCon;
+	public int attInt;
+	public int attWis;
+	public int attCha;
 	
-	//holds total pool of attribute points
-	public int attPool = 70 - (attStr + attDex + attCon + attInt + attWis + attCha);
-
+	//holds total pool of attribute points (or the number left after spending)
+	public int attPool = 72 - (attStr + attDex + attCon + attInt + attWis + attCha);
+	
+	//converts pool total to string for display
+	public String stringPool = String.valueOf(attPool);
+	
+	//converts attribute totals to string for display
 	public String stringStr = String.valueOf(attStr);
 	public String stringDex = String.valueOf(attDex);
 	public String stringCon = String.valueOf(attCon);
@@ -51,6 +55,7 @@ public class GuiCreate extends GuiContainer
 		super(new ContainerDungeonBook(invPlayer, world, x, y, z));
 	}
 
+	//page 1 of gui
 	@Override
 	public void initGui()
 	{
@@ -68,6 +73,7 @@ public class GuiCreate extends GuiContainer
 		
 	}
 	
+	//page 2 of gui
 	public void initGui2()
 	{
 		super.initGui();
@@ -86,25 +92,39 @@ public class GuiCreate extends GuiContainer
 		
 	}
 	
+	
+	//page 3 of gui
 	public void initGui3()
 	{
 		super.initGui();
 		buttonList.clear();
 
-		buttonList.add(new GuiButton(17, guiLeft + 100, guiTop + 10, 20, 20, "+"));
+		buttonList.add(new GuiButton(17, guiLeft + 90, guiTop + 10, 20, 20, "+"));
 		buttonList.add(new GuiButton(18, guiLeft + 60, guiTop + 10, 20, 20, "-"));
-		buttonList.add(new GuiButton(19, guiLeft + 100, guiTop + 35, 20, 20, "+"));
+		buttonList.add(new GuiButton(19, guiLeft + 90, guiTop + 35, 20, 20, "+"));
 		buttonList.add(new GuiButton(20, guiLeft + 60, guiTop + 35, 20, 20, "-"));
-		buttonList.add(new GuiButton(21, guiLeft + 100, guiTop + 60, 20, 20, "+"));
+		buttonList.add(new GuiButton(21, guiLeft + 90, guiTop + 60, 20, 20, "+"));
 		buttonList.add(new GuiButton(22, guiLeft + 60, guiTop + 60, 20, 20, "-"));
-		buttonList.add(new GuiButton(23, guiLeft + 100, guiTop + 85, 20, 20, "+"));
+		buttonList.add(new GuiButton(23, guiLeft + 90, guiTop + 85, 20, 20, "+"));
 		buttonList.add(new GuiButton(24, guiLeft + 60, guiTop + 85, 20, 20, "-"));
-		buttonList.add(new GuiButton(25, guiLeft + 100, guiTop + 110, 20, 20, "+"));
+		buttonList.add(new GuiButton(25, guiLeft + 90, guiTop + 110, 20, 20, "+"));
 		buttonList.add(new GuiButton(26, guiLeft + 60, guiTop + 110, 20, 20, "-"));
-		buttonList.add(new GuiButton(27, guiLeft + 100, guiTop + 135, 20, 20, "+"));
+		buttonList.add(new GuiButton(27, guiLeft + 90, guiTop + 135, 20, 20, "+"));
 		buttonList.add(new GuiButton(28, guiLeft + 60, guiTop + 135, 20, 20, "-"));
-		
+
 		buttonList.add(new GuiButton(29, guiLeft + 12, guiTop + 170, 20, 20, "<"));
+		buttonList.add(new GuiButton(30, guiLeft + 140, guiTop + 170, 20, 20, ">"));
+		
+	}
+	
+	//page 4 of gui
+	public void initGui4()
+	{
+		super.initGui();
+		buttonList.clear();
+
+		buttonList.add(new GuiButton(31, guiLeft + 12, guiTop + 170, 60, 20, "Reset"));
+		buttonList.add(new GuiButton(32, guiLeft + 100, guiTop + 170, 60, 20, "Play"));
 		
 	}
 	
@@ -167,44 +187,58 @@ public class GuiCreate extends GuiContainer
 			case 16:initGui();
 					break;	
 					
-			case 17: if(attPool > 0) 
-						{attStr ++;}
-					else {return;}
-			
+			case 17:System.out.println("str up");
 					break;					
-			case 18: attStr --;
-					break;					
-			case 19:attDex ++;
-					break;					
-			case 20:attDex --;
-					break;					
-			case 21:attCon ++;
-					break;					
-			case 22:attCon --;	
-					break;					
-			case 23:attInt ++;
-					break;					
-			case 24:attInt --;
-					break;			
-			case 25:attWis ++;
-					break;					
-			case 26:attWis --;
+			case 18:System.out.println("str down");
 					break;
-			case 27:attCha ++;
+			case 19:System.out.println("dex up");
+					break;	
+			case 20:System.out.println("dex down");
+					break;		
+			case 21:System.out.println("con up");
+					break;				
+			case 22:System.out.println("con down");
+					break;		
+			case 23:System.out.println("int up");
+					break;							
+			case 24:System.out.println("int down");
+					break;			
+			case 25:System.out.println("wis up");
 					break;					
-			case 28:attCha --;
+			case 26:System.out.println("wis down");
+					break;
+			case 27:System.out.println("cha up");
+					break;					
+			case 28:System.out.println("cha down");
 					break;
 					
 			case 29:initGui2();
 					break;	
-			default: return;
+			case 30:initGui4();
+					break;		
+					
+			case 31:initGui();
+					chosenRace = "";
+					chosenClass = "";
+					attStr = 10;
+					attDex = 10;
+					attCon = 10;
+					attInt = 10;
+					attWis = 10;
+					attCha = 10;
+					
+					break;	
+			case 32: ;
+					break;	
+					
+			default: ;
 		}		
 	}
 	
 	@Override
 	protected void drawGuiContainerForegroundLayer(int i, int j)
 	{
-			fontRendererObj.drawString("Create a Character", 40, -10, 0x990000);
+			fontRendererObj.drawString("Create a Character", 40, -10, 0x000000);
 			
 			fontRendererObj.drawString("Race:", 200, -10, 0x505050);
 			fontRendererObj.drawString(chosenRace, 235, -10, 0xffffff);
@@ -212,6 +246,9 @@ public class GuiCreate extends GuiContainer
 			fontRendererObj.drawString("Class:", 200, 10, 0x505050);
 			fontRendererObj.drawString(chosenClass, 235, 10, 0xffffff);
 
+			fontRendererObj.drawString("Points:", -70, 30, 0x505050);
+			fontRendererObj.drawString(stringPool, -30, 30, 0xffffff);
+			
 			fontRendererObj.drawString("Strength:", 200, 30, 0x505050);
 			fontRendererObj.drawString(stringStr, 270, 30, 0xffffff);
 			

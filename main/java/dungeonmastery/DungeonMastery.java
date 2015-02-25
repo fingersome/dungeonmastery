@@ -2,8 +2,10 @@ package dungeonmastery;
 
 import dungeonmastery.block.BlockList;
 import dungeonmastery.client.gui.GuiHandler;
+import dungeonmastery.config.ConfigHandler;
 import dungeonmastery.item.ItemDungeonBook;
 import dungeonmastery.item.ItemList;
+import dungeonmastery.item.ItemSoul;
 import dungeonmastery.proxy.CommonProxy;
 import dungeonmastery.tabs.CreativeTabDungeon;
 import net.minecraft.client.Minecraft;
@@ -38,7 +40,8 @@ public class DungeonMastery
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) 
 	{
-	
+		ConfigHandler.init(event.getSuggestedConfigurationFile());
+		
 		items.Init();
 		
 		
@@ -51,8 +54,9 @@ public class DungeonMastery
 		if(event.getSide() == Side.CLIENT)
 		{
 		    	RenderItem renderItem = Minecraft.getMinecraft().getRenderItem();
-		    		
+
 		    	renderItem.getItemModelMesher().register(ItemList.itemDungeonBook, 0, new ModelResourceLocation(ModInfo.MODID + ":" + ((ItemDungeonBook) ItemList.itemDungeonBook).getName(), "inventory"));
+		    	renderItem.getItemModelMesher().register(ItemList.itemSoul, 0, new ModelResourceLocation(ModInfo.MODID + ":" + ((ItemSoul) ItemList.itemSoul).getName(), "inventory"));
 		}
 		
 
