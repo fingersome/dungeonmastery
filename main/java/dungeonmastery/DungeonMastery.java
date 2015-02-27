@@ -1,18 +1,10 @@
 package dungeonmastery;
 
-import dungeonmastery.block.BlockList;
-import dungeonmastery.client.gui.GuiHandler;
-import dungeonmastery.config.ConfigHandler;
-import dungeonmastery.item.ItemDungeonBook;
-import dungeonmastery.item.ItemList;
-import dungeonmastery.item.ItemSoul;
-import dungeonmastery.proxy.CommonProxy;
-import dungeonmastery.tabs.CreativeTabDungeon;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -21,8 +13,19 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
+
+import org.apache.logging.log4j.Logger;
+
+import dungeonmastery.client.gui.GuiHandler;
+import dungeonmastery.config.ConfigHandler;
+import dungeonmastery.event.DMEventHandler;
+import dungeonmastery.item.ItemDungeonBook;
+import dungeonmastery.item.ItemList;
+import dungeonmastery.item.ItemSoul;
+import dungeonmastery.proxy.ClientProxy;
+import dungeonmastery.proxy.CommonProxy;
+import dungeonmastery.tabs.CreativeTabDungeon;
 
 @Mod(modid = ModInfo.MODID, version = ModInfo.VERSION)
 public class DungeonMastery
@@ -32,31 +35,40 @@ public class DungeonMastery
 
 	@SidedProxy(clientSide = "dungeonmastery.proxy.ClientProxy", serverSide = "dungeonmastery.proxy.CommonProxy")     
 	public static CommonProxy proxy;
-	
 	public static ItemList items;
-	
 	public static CreativeTabs tabdungeon = new CreativeTabDungeon(CreativeTabs.getNextID(), "dungeontab");
+	public static Logger logger;
+	
+	
+	/** This is used to keep track of GUIs that we make*/
+	private static int modGuiIndex = 10;
+
+	/** Custom GUI indices: */
+	public static final int
+	GUI_CUSTOM_INV = modGuiIndex++,
+	GUI_ITEM_INV = modGuiIndex++;
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) 
 	{
+		logger = event.getModLog();
+		logger.info("Beginning pre-initialization");
 		ConfigHandler.init(event.getSuggestedConfigurationFile());
 		
 		items.Init();
-		
-		
 	}
 	
 	@EventHandler
 	public void Init(FMLInitializationEvent event) 
 	{
-		
+		logger.info("Beginning initialization");
 		if(event.getSide() == Side.CLIENT)
 		{
 		    	RenderItem renderItem = Minecraft.getMinecraft().getRenderItem();
 
 		    	renderItem.getItemModelMesher().register(ItemList.itemDungeonBook, 0, new ModelResourceLocation(ModInfo.MODID + ":" + ((ItemDungeonBook) ItemList.itemDungeonBook).getName(), "inventory"));
 		    	renderItem.getItemModelMesher().register(ItemList.itemSoul, 0, new ModelResourceLocation(ModInfo.MODID + ":" + ((ItemSoul) ItemList.itemSoul).getName(), "inventory"));
+		
 		}
 		
 
@@ -66,6 +78,10 @@ public class DungeonMastery
 	@EventHandler
 	public void PostInit(FMLPostInitializationEvent event)
 	{
+		logger.info("Beginning post-initialization");
+		MinecraftForge.EVENT_BUS.register(new DMEventHandler());
+		
+		proxy.registerRenderers();
 
 	}
 	
