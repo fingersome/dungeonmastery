@@ -25,7 +25,7 @@ The texture file must be 256x256 (or multiples thereof)
 If you want a texture to test out the tutorial with, I've uploaded the mana_bar.png to my github page:
 https://github.com/coolAlias/Forge_Tutorials/tree/master/textures/gui
 */
-private static final ResourceLocation texturepath = new ResourceLocation("dungeonmastery", "textures/gui/mana_bar.png");
+private static final ResourceLocation texturepath = new ResourceLocation("dungeonmastery", "textures/gui/guiOverlay.png");
 
 public GuiManaBar(Minecraft mc)
 {
@@ -98,15 +98,14 @@ width and height are how many pixels to render from the start point (u, v)
 */
 // First draw the background layer. In my texture file, it starts at the upper-
 // left corner (x=0, y=0), ends at 50 pixels (so it's 51 pixels long) and is 4 pixels thick (y value)
-this.drawTexturedModalRect(xPos, yPos, 0, 0, 51, 4);
+this.drawTexturedModalRect(xPos, yPos, 0, 0, 92, 5);
 // Then draw the foreground; it's located just below the background in my
 // texture file, so it starts at x=0, y=4, is only 2 pixels thick and 49 length
 // Why y=4 and not y=5? Y starts at 0, so 0,1,2,3 = 4 pixels for the background
 
 // However, we want the length to be based on current mana, so we need a new variable:
 int manabarwidth = (int)(((float) props.getCurrentMana() / props.getMaxMana()) * 49);
-System.out.println("[GUI MANA] Current mana bar width: " + manabarwidth);
 // Now we can draw our mana bar at yPos+1 so it centers in the background:
-this.drawTexturedModalRect(xPos, yPos + 1, 0, 4, manabarwidth, 2);
+this.drawTexturedModalRect(xPos, yPos, 0, 5, manabarwidth, 5);
 }
 }
