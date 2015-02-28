@@ -41,6 +41,7 @@ this.mc = mc;
 @SubscribeEvent(priority = EventPriority.NORMAL)
 public void onRenderExperienceBar(RenderGameOverlayEvent event)
 {
+	
 // We draw after the ExperienceBar has drawn. The event raised by GuiIngameForge.pre()
 // will return true from isCancelable. If you call event.setCanceled(true) in
 // that case, the portion of rendering which this event represents will be canceled.
@@ -48,9 +49,8 @@ public void onRenderExperienceBar(RenderGameOverlayEvent event)
 // false and that the eventType represents the ExperienceBar event.
 	if (event.isCancelable() || event.type != ElementType.EXPERIENCE)
 	{
-	return;
+		return;
 	}
-
 
 
 /** Start of my tutorial */
@@ -67,12 +67,8 @@ return;
 }
 
 // Starting position for the mana bar - 2 pixels from the top left corner.
-int xPos = 2;
-int yPos = 2;
-
-// The center of the screen can be gotten like this during this event:
-// int xPos = event.resolution.getScaledWidth() / 2;
-// int yPos = event.resolution.getScaledHeight() / 2;
+int xPos = event.resolution.getScaledWidth() / 2;
+int yPos = event.resolution.getScaledHeight() - 49;
 
 // Be sure to offset based on your texture size or your texture will not be truly centered:
 // int xPos = (event.resolution.getScaledWidth() + textureWidth) / 2;
@@ -98,7 +94,7 @@ width and height are how many pixels to render from the start point (u, v)
 */
 // First draw the background layer. In my texture file, it starts at the upper-
 // left corner (x=0, y=0), ends at 50 pixels (so it's 51 pixels long) and is 4 pixels thick (y value)
-this.drawTexturedModalRect(xPos, yPos, 0, 0, 92, 5);
+this.drawTexturedModalRect(xPos - 91 , yPos, 0, 0, 182, 5);
 // Then draw the foreground; it's located just below the background in my
 // texture file, so it starts at x=0, y=4, is only 2 pixels thick and 49 length
 // Why y=4 and not y=5? Y starts at 0, so 0,1,2,3 = 4 pixels for the background
@@ -106,6 +102,6 @@ this.drawTexturedModalRect(xPos, yPos, 0, 0, 92, 5);
 // However, we want the length to be based on current mana, so we need a new variable:
 int manabarwidth = (int)(((float) props.getCurrentMana() / props.getMaxMana()) * 49);
 // Now we can draw our mana bar at yPos+1 so it centers in the background:
-this.drawTexturedModalRect(xPos, yPos, 0, 5, manabarwidth, 5);
+this.drawTexturedModalRect(xPos - 91,  yPos, 0, 5, manabarwidth, 5);
 }
 }
