@@ -42,12 +42,16 @@ this.mc = mc;
 public void onRenderExperienceBar(RenderGameOverlayEvent event)
 {
 	
+	if (event.type == ElementType.EXPERIENCE)
+			{
+				event.setCanceled(true);
+			}
 // We draw after the ExperienceBar has drawn. The event raised by GuiIngameForge.pre()
 // will return true from isCancelable. If you call event.setCanceled(true) in
 // that case, the portion of rendering which this event represents will be canceled.
 // We want to draw *after* the experience bar is drawn, so we make sure isCancelable() returns
 // false and that the eventType represents the ExperienceBar event.
-	if (event.isCancelable() || event.type != ElementType.EXPERIENCE)
+	if (event.isCancelable() || event.type != ElementType.FOOD)
 	{
 		return;
 	}
@@ -61,14 +65,14 @@ ExtendedPlayer props = ExtendedPlayer.get(this.mc.thePlayer);
 // If for some reason these properties don't exist (perhaps in multiplayer?)
 // or the player doesn't have mana, return. Note that I added a new method
 // 'getMaxMana()' to ExtendedPlayer for this purpose
-if (props == null || props.getMaxMana() == 0)
+if (props == null || props.getMaxLesser() == 0)
 {
 return;
 }
 
 // Starting position for the mana bar - 2 pixels from the top left corner.
 int xPos = event.resolution.getScaledWidth() / 2;
-int yPos = event.resolution.getScaledHeight() - 49;
+int yPos = event.resolution.getScaledHeight() - 29;
 
 // Be sure to offset based on your texture size or your texture will not be truly centered:
 // int xPos = (event.resolution.getScaledWidth() + textureWidth) / 2;
@@ -100,8 +104,9 @@ this.drawTexturedModalRect(xPos - 91 , yPos, 0, 0, 182, 5);
 // Why y=4 and not y=5? Y starts at 0, so 0,1,2,3 = 4 pixels for the background
 
 // However, we want the length to be based on current mana, so we need a new variable:
-int manabarwidth = (int)(((float) props.getCurrentMana() / props.getMaxMana()) * 49);
+int lesserbarwidth = (int)(((float) props.getCurrentLesser() / props.getMaxLesser()) * 24);
+
 // Now we can draw our mana bar at yPos+1 so it centers in the background:
-this.drawTexturedModalRect(xPos - 91,  yPos, 0, 5, manabarwidth, 5);
+this.drawTexturedModalRect(xPos - 91,  yPos, 0, 5, lesserbarwidth, 5);
 }
 }

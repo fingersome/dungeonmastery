@@ -14,12 +14,11 @@ public class ClientProxy extends CommonProxy
 	
 	private final Minecraft mc = Minecraft.getMinecraft();
 	
-		// can register other client-side only things here, too:
 	@Override
 	public void registerRenderers()
 	{
 			// The RenderGameOverlayEvent is in the MinecraftForge package, so we will
-			// register our mana bar overlay to that event bus:
+			// register our spell slot bar overlay to that event bus:
 			MinecraftForge.EVENT_BUS.register(new GuiManaBar(mc));
 	}
 
