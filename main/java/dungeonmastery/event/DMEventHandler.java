@@ -26,4 +26,19 @@ public class DMEventHandler
 			}
 		}
 	}
+	
+	@SubscribeEvent
+	public void onLivingUpdate(LivingUpdateEvent event) 
+	{
+		if (event.entity instanceof EntityPlayer) 
+		{
+			EntityPlayer player = (EntityPlayer) event.entity;
+			
+			if (player.isPlayerFullyAsleep()) 
+			{
+				player.addChatMessage(new ChatComponentText("Ah, a full nights sleep and I feel rested, and ready for adventure!"));
+				ExtendedPlayer.get(player).replenishSlots();
+			}
+		}
+	}
 }

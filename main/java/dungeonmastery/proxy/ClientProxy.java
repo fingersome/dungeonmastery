@@ -7,7 +7,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import dungeonmastery.DungeonMastery;
-import dungeonmastery.client.gui.GuiManaBar;
+import dungeonmastery.client.gui.GuiSpellSlots;
 
 public class ClientProxy extends CommonProxy
 {
@@ -19,7 +19,7 @@ public class ClientProxy extends CommonProxy
 	{
 			// The RenderGameOverlayEvent is in the MinecraftForge package, so we will
 			// register our spell slot bar overlay to that event bus:
-			MinecraftForge.EVENT_BUS.register(new GuiManaBar(mc));
+			MinecraftForge.EVENT_BUS.register(new GuiSpellSlots(mc));
 	}
 
 }

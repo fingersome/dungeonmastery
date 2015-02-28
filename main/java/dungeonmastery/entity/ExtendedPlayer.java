@@ -13,10 +13,13 @@ public final static String CHAR_PROPS = "ExtendedPlayer";
 private final EntityPlayer player;
 private int currentLesser, maxLesser;
 
+public static final int SSLOT_WATCHER = 20;
+
 public ExtendedPlayer(EntityPlayer player)
 {
 this.player = player;
-this.currentLesser = this.maxLesser = 4;
+this.maxLesser = 4;
+this.player.getDataWatcher().addObject(SSLOT_WATCHER, this.maxLesser);
 }
 
 /**
@@ -42,7 +45,7 @@ public void saveNBTData(NBTTagCompound compound)
 {
 NBTTagCompound properties = new NBTTagCompound();
 
-properties.setInteger("CurrentLesser", this.currentLesser);
+properties.setInteger("CurrentLesser", this.player.getDataWatcher().getWatchableObjectInt(SSLOT_WATCHER));
 properties.setInteger("MaxLesser", this.maxLesser);
 
 compound.setTag(CHAR_PROPS, properties);
@@ -53,7 +56,7 @@ public void loadNBTData(NBTTagCompound compound)
 {
 NBTTagCompound properties = (NBTTagCompound) compound.getTag(CHAR_PROPS);
 
-this.currentLesser = properties.getInteger("CurrentLesser");
+this.player.getDataWatcher().updateObject(SSLOT_WATCHER, properties.getInteger("CurrentMana"));
 this.maxLesser = properties.getInteger("MaxLesser");
 
 System.out.println("[DM PROPS] Spell Slots from NBT: " + this.currentLesser + "/" + this.maxLesser);
@@ -67,32 +70,47 @@ public void init(Entity entity, World world) {}
 * Returns true if the amount of spell slots was consumed or false
 * if the player's current spell slots were insufficient
 */
-public boolean consumeLesser(int amount)
+public final boolean consumeLesser(int amount)
 {
-// Does the player have enough spell slots?
-boolean sufficient = amount <= this.currentLesser;
+// This variable makes it easier to write the rest of the method
+int mana = this.player.getDataWatcher().getWatchableObjectInt(SSLOT_WATCHER);
 
-// Consume the amount anyway; if it's more than the player's current spell slots,
-// spell slots will be set to 0
-this.currentLesser -= (amount < this.currentLesser ? amount : this.currentLesser);
+boolean sufficient = amount <= mana;
+mana -= (amount < mana ? amount : mana);
 
-// Return if the player had enough spell slots
+// Update the data watcher object with the new value
+this.player.getDataWatcher().updateObject(SSLOT_WATCHER, mana);
+
 return sufficient;
 }
 
-public void replenishLesser()
+
+public final void replenishLesser()
 {
-this.currentLesser = this.maxLesser;
+this.player.getDataWatcher().updateObject(SSLOT_WATCHER, this.maxLesser);
 }
 
-public int getMaxLesser()
+
+public final int getCurrentLesser()
+{
+return this.player.getDataWatcher().getWatchableObjectInt(SSLOT_WATCHER);
+}
+
+
+public final void setCurrentLesser(int amount)
+{
+this.player.getDataWatcher().updateObject(SSLOT_WATCHER, (amount < this.maxLesser ? amount : this.maxLesser));
+}
+
+
+public final int getMaxLesser()
 {
 	return maxLesser;
 }
 
-public int getCurrentLesser()
+public void replenishSlots() 
 {
-	return currentLesser;
+	replenishLesser();	
 }
 
 }

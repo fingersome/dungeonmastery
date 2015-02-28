@@ -50,7 +50,6 @@ public class ItemSoul extends Item
 			{
 				System.out.println("[SLOT TEST ITEM] Player needs " + cost + " slots. Player has " + props.getCurrentLesser() + " slots.");
 				player.addChatComponentMessage(new ChatComponentText("I CAST- oh i'm out of spell slots..."));
-				props.replenishLesser();
 			}
 		}
 		return itemstack;

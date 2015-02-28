@@ -38,15 +38,9 @@ public class DungeonMastery
 	public static ItemList items;
 	public static CreativeTabs tabdungeon = new CreativeTabDungeon(CreativeTabs.getNextID(), "dungeontab");
 	public static Logger logger;
-	
-	
-	/** This is used to keep track of GUIs that we make*/
 	private static int modGuiIndex = 10;
 
-	/** Custom GUI indices: */
-	public static final int
-	GUI_CUSTOM_INV = modGuiIndex++,
-	GUI_ITEM_INV = modGuiIndex++;
+	public static final int GUI_PLAYER_INV = modGuiIndex++,	GUI_ITEM_INV = modGuiIndex++;
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) 

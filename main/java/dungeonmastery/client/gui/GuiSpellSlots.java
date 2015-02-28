@@ -14,7 +14,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class GuiManaBar extends Gui
+public class GuiSpellSlots extends Gui
 {
 private Minecraft mc;
 /* (my added notes:)
@@ -27,7 +27,7 @@ https://github.com/coolAlias/Forge_Tutorials/tree/master/textures/gui
 */
 private static final ResourceLocation texturepath = new ResourceLocation("dungeonmastery", "textures/gui/guiOverlay.png");
 
-public GuiManaBar(Minecraft mc)
+public GuiSpellSlots(Minecraft mc)
 {
 super();
 // We need this to invoke the render engine.
