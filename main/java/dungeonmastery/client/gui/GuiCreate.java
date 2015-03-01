@@ -28,7 +28,6 @@ public class GuiCreate extends GuiContainer
 	//holds race & class strings for display
 	public String chosenRace;
 	public String chosenClass;
-	public boolean firstScreen = true;
 	public boolean isCharacter;
 	
 	//holds starting value for skills
@@ -78,7 +77,6 @@ public class GuiCreate extends GuiContainer
 	public void initGui2()
 	{
 		super.initGui();
-		firstScreen = false;
 		
 		buttonList.clear();
 		
@@ -270,12 +268,6 @@ public class GuiCreate extends GuiContainer
 	protected void drawGuiContainerForegroundLayer(int i, int j)
 	{
 		
-			if(firstScreen == true)
-			{
-			fontRendererObj.drawString("Do you want to:", 48, 5, 0x000000);
-			}
-			else
-			{
 			if(isCharacter == true)
 			{
 			fontRendererObj.drawString("Create a Character", 40, -10, 0x000000);
@@ -308,7 +300,7 @@ public class GuiCreate extends GuiContainer
 			fontRendererObj.drawString("Charisma:", 200, 130, 0x505050);
 			fontRendererObj.drawString(stringCha, 270, 130, 0xffffff);
 			
-			}
+			
 	}	
 	
 	

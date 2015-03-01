@@ -28,11 +28,4 @@ public class ItemList
 		
 	}
 	
-	public static void RegisterRecipes()
-	{
-		
-	}
-
-	
-	
 }

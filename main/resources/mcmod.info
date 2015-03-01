@@ -1,16 +1,17 @@
 [
 {
   "modid": "dungeonmastery",
-  "name": "Dungeon Mastery",
+  "name": "Dungeon Mastery: Core",
   "description": "Roll d20!",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
-  "updateUrl": "",
+  "updateUrl": "http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/wip-mods/1445950-1-8-forge-wip-dungeon-mastery",
   "authorList": ["Fingersome"],
   "credits": "",
-  "logoFile": "",
+  "logoFile": "D20.png",
   "screenshots": [],
   "dependencies": []
+  "dependants": [ "dungeonmastery_treasure", "dungeonmastery_monster" ]
 }
 ]

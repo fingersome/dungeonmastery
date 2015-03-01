@@ -1,5 +1,5 @@
 # Creative tabs
-itemGroup.dungeontab=Dungeon Mastery
+itemGroup.dungeontab=Dungeon Mastery: Core
 #
 # Enchantments
 #
@@ -7,7 +7,7 @@ itemGroup.dungeontab=Dungeon Mastery
 #
 # Blocks
 #
-tile.blockdungeonblock.name=Dungeon Block
+tile.dungeonmastery.blockDevice.name=Device
 #
 #
 # Items
@@ -20,4 +20,3 @@ item.dungeonmastery.itemSoul.name=Soul Wisp
 # GUI
 #
 # Keys
-key.tut_inventory.desc=Opens a custom Inventory

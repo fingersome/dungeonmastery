@@ -1,6 +1,5 @@
 package dungeonmastery.item;
 
-import net.minecraftforge.common.config.Property;
 
 public class ItemInfo
 {
