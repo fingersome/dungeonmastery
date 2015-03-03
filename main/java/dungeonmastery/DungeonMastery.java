@@ -26,6 +26,7 @@ import dungeonmastery.client.gui.GuiHandler;
 import dungeonmastery.config.ConfigHandler;
 import dungeonmastery.event.DMEventHandler;
 import dungeonmastery.item.ItemDungeonBook;
+import dungeonmastery.item.ItemInfo;
 import dungeonmastery.item.ItemList;
 import dungeonmastery.item.ItemSoul;
 import dungeonmastery.proxy.ClientProxy;
@@ -78,8 +79,15 @@ public class DungeonMastery
 		    	//items
 		    	renderItem.getItemModelMesher().register(ItemList.itemDungeonBook, 0, new ModelResourceLocation(ModInfo.MODID + ":" + ((ItemDungeonBook) ItemList.itemDungeonBook).getName(), "inventory"));
 		    	renderItem.getItemModelMesher().register(ItemList.itemSoul, 0, new ModelResourceLocation(ModInfo.MODID + ":" + ((ItemSoul) ItemList.itemSoul).getName(), "inventory"));
-		
 		    	
+		    	renderItem.getItemModelMesher().register(ItemList.itemCoinCopper, 0, new ModelResourceLocation(ModInfo.MODID + ":" + (ItemInfo.ITEM_COIN_COPPER_UNLOCALIZED), "inventory"));
+		    	renderItem.getItemModelMesher().register(ItemList.itemCoinSilver, 0, new ModelResourceLocation(ModInfo.MODID + ":" + (ItemInfo.ITEM_COIN_SILVER_UNLOCALIZED), "inventory"));
+		    	renderItem.getItemModelMesher().register(ItemList.itemCoinGold, 0, new ModelResourceLocation(ModInfo.MODID + ":" + (ItemInfo.ITEM_COIN_GOLD_UNLOCALIZED), "inventory"));
+				
+		    	renderItem.getItemModelMesher().register(ItemList.itemCrownCopper, 0, new ModelResourceLocation(ModInfo.MODID + ":" + (ItemInfo.ITEM_CROWN_COPPER_UNLOCALIZED), "inventory"));
+		    	renderItem.getItemModelMesher().register(ItemList.itemCrownSilver, 0, new ModelResourceLocation(ModInfo.MODID + ":" + (ItemInfo.ITEM_CROWN_SILVER_UNLOCALIZED), "inventory"));
+		    	renderItem.getItemModelMesher().register(ItemList.itemCrownGold, 0, new ModelResourceLocation(ModInfo.MODID + ":" + (ItemInfo.ITEM_CROWN_GOLD_UNLOCALIZED), "inventory"));
+				
 	    		
 	    }
 	    

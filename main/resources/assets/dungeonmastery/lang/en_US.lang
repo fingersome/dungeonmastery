@@ -13,6 +13,12 @@ tile.dungeonmastery.blockDevice.name=Device
 # Items
 item.dungeonmastery.itemDungeonBook.name=Old Book
 item.dungeonmastery.itemSoul.name=Soul Wisp
+item.dungeonmastery.itemCoinCopper.name=Copper Piece
+item.dungeonmastery.itemCoinSilver.name=Silver Piece
+item.dungeonmastery.itemCoinGold.name=Gold Piece
+item.dungeonmastery.itemCrownCopper.name=Copper Crown
+item.dungeonmastery.itemCrownSilver.name=Silver Crown
+item.dungeonmastery.itemCrownGold.name=Gold Crown
 #
 #
 # Fluids
