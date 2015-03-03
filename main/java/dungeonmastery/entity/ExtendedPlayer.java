@@ -1,5 +1,6 @@
 package dungeonmastery.entity;
 
+import dungeonmastery.inventory.InventoryCharacter;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -9,6 +10,8 @@ import net.minecraftforge.common.IExtendedEntityProperties;
 public class ExtendedPlayer implements IExtendedEntityProperties
 {
 
+public final InventoryCharacter inventory = new InventoryCharacter();
+	
 public final static String CHAR_PROPS = "ExtendedPlayer";
 private final EntityPlayer player;
 private int currentLesser, maxLesser;
@@ -20,6 +23,8 @@ public ExtendedPlayer(EntityPlayer player)
 this.player = player;
 this.maxLesser = 4;
 this.player.getDataWatcher().addObject(SSLOT_WATCHER, this.maxLesser);
+
+
 }
 
 /**
@@ -45,6 +50,7 @@ public void saveNBTData(NBTTagCompound compound)
 {
 NBTTagCompound properties = new NBTTagCompound();
 
+inventory.writeToNBT(properties);
 properties.setInteger("CurrentLesser", this.player.getDataWatcher().getWatchableObjectInt(SSLOT_WATCHER));
 properties.setInteger("MaxLesser", this.maxLesser);
 
@@ -55,7 +61,7 @@ compound.setTag(CHAR_PROPS, properties);
 public void loadNBTData(NBTTagCompound compound)
 {
 NBTTagCompound properties = (NBTTagCompound) compound.getTag(CHAR_PROPS);
-
+inventory.readFromNBT(properties);
 this.player.getDataWatcher().updateObject(SSLOT_WATCHER, properties.getInteger("CurrentMana"));
 this.maxLesser = properties.getInteger("MaxLesser");
 
@@ -111,6 +117,10 @@ public final int getMaxLesser()
 public void replenishSlots() 
 {
 	replenishLesser();	
+	//replenishMinor();
+	//replenishStandard();
+	//replenishMajor();
+	//replenishDaily();
 }
 
 }

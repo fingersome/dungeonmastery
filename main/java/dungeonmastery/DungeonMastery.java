@@ -7,6 +7,7 @@ import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -29,6 +30,7 @@ import dungeonmastery.item.ItemDungeonBook;
 import dungeonmastery.item.ItemInfo;
 import dungeonmastery.item.ItemList;
 import dungeonmastery.item.ItemSoul;
+import dungeonmastery.network.PacketDispatcher;
 import dungeonmastery.proxy.ClientProxy;
 import dungeonmastery.proxy.CommonProxy;
 import dungeonmastery.tabs.CreativeTabDMCore;
@@ -41,13 +43,16 @@ public class DungeonMastery
 
 	@SidedProxy(clientSide = "dungeonmastery.proxy.ClientProxy", serverSide = "dungeonmastery.proxy.CommonProxy")     
 	public static CommonProxy proxy;
+	
 	public static ItemList items;
 	public static BlockList blocks;
+	
 	public static CreativeTabs tabdungeon = new CreativeTabDMCore(CreativeTabs.getNextID(), "dungeontab");
+	
 	public static Logger logger;
+	
 	private static int modGuiIndex = 10;
-
-	public static final int GUI_PLAYER_INV = modGuiIndex++,	GUI_ITEM_INV = modGuiIndex++;
+	public static final int GUI_CHAR_INV = modGuiIndex++;
 	
 	public static Block blockDevice;
 	
@@ -61,13 +66,13 @@ public class DungeonMastery
 		items.Init();
 
 		blockDevice = new BlockDevice();
+		
+		PacketDispatcher.registerPackets();
 	}
 	
 	@EventHandler
 	public void Init(FMLInitializationEvent event) 
 	{
-
-		
 		logger.info("Beginning initialization");
 		if(event.getSide() == Side.CLIENT)
 		{
@@ -86,11 +91,9 @@ public class DungeonMastery
 				
 		    	renderItem.getItemModelMesher().register(ItemList.itemCrownCopper, 0, new ModelResourceLocation(ModInfo.MODID + ":" + (ItemInfo.ITEM_CROWN_COPPER_UNLOCALIZED), "inventory"));
 		    	renderItem.getItemModelMesher().register(ItemList.itemCrownSilver, 0, new ModelResourceLocation(ModInfo.MODID + ":" + (ItemInfo.ITEM_CROWN_SILVER_UNLOCALIZED), "inventory"));
-		    	renderItem.getItemModelMesher().register(ItemList.itemCrownGold, 0, new ModelResourceLocation(ModInfo.MODID + ":" + (ItemInfo.ITEM_CROWN_GOLD_UNLOCALIZED), "inventory"));
-				
-	    		
+		    	renderItem.getItemModelMesher().register(ItemList.itemCrownGold, 0, new ModelResourceLocation(ModInfo.MODID + ":" + (ItemInfo.ITEM_CROWN_GOLD_UNLOCALIZED), "inventory"));   		
 	    }
-	    
+	    		
 		new GuiHandler();
 	}
 	
@@ -99,6 +102,7 @@ public class DungeonMastery
 	{
 		logger.info("Beginning post-initialization");
 		MinecraftForge.EVENT_BUS.register(new DMEventHandler());
+
 		
 		proxy.registerRenderers();
 
