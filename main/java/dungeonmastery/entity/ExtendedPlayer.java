@@ -15,37 +15,24 @@ public final InventoryCharacter inventory = new InventoryCharacter();
 public final static String CHAR_PROPS = "ExtendedPlayer";
 private final EntityPlayer player;
 
-private boolean raceDragonborn;
-private boolean raceDwarf;
-private boolean raceEladrin;
-private boolean raceElf;
-private boolean raceHalfElf;
-private boolean raceHalfling;
-private boolean raceHuman;
-private boolean raceTiefling;
+//variable to hold the character's race
+private String charRace;
 
-private boolean classCleric;
-private boolean classFighter;
-private boolean classPaladin;
-private boolean classRanger;
-private boolean classWarlock;
-private boolean classWarlord;
-private boolean classWizard;
+//variable to hold the character's class
+private String charClass;
 
-private double attStr;
-private double attDex;
-private double attCon;
-private double attInt;
-private double attWis;
-private double attCha;
+//an array that holds the character's attributes (str, dex, con, int, wis, cha)
+private double charAttributes[] = {};
 
-private double pointStr = attStr - 10;
-private double pointDex = attDex - 10;
-private double pointCon = attCon - 10;
-private double pointInt = attInt - 10;
-private double pointWis = attWis - 10;
-private double pointCha = attCha - 10;
+//variables to hold the amount of points spent in each attribute
+private double pointStr = charAttributes[1] - 10;
+private double pointDex = charAttributes[2] - 10;
+private double pointCon = charAttributes[3] - 10;
+private double pointInt = charAttributes[4] - 10;
+private double pointWis = charAttributes[5] - 10;
+private double pointCha = charAttributes[6] - 10;
 
+//variables to hold the modifier for each attribute, i.e half the points spent in the given attribute (rounded down)
 private int modStr = (int) Math.floor(pointStr / 2);
 private int modDex = (int) Math.floor(pointDex / 2);
 private int modCon = (int) Math.floor(pointCon / 2);
@@ -53,8 +40,12 @@ private int modInt = (int) Math.floor(pointInt / 2);
 private int modWis = (int) Math.floor(pointWis / 2);
 private int modCha = (int) Math.floor(pointCha / 2);
 
+// an array that holds the character's trained skills 
+// (acrobatics, arcana, athletics, bluff, diplomacy, dungeoneering, endurance, 
+//	heal, history, insight, intimidate, nature, perception, religion, stealth, streetwise & thievery)
+private boolean charSkills[] = {};
 
-
+//variables to hold the current and maximum spells slots in each category of slot
 private int currentLesser, maxLesser;
 private int currentMinor, maxMinor;
 private int currentSmall, maxSmall;
