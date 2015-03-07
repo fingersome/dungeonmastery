@@ -22,54 +22,54 @@ public class GuiCreate extends GuiContainer
 {
 	private int xSize = 256;
 	private int ySize = 256;
-	
-	private ResourceLocation texture = new ResourceLocation(ModInfo.MODID + ":" + "textures/gui/guiPage.png");
+
+	private ResourceLocation textureblank = new ResourceLocation(ModInfo.MODID + ":" + "textures/gui/guiPage.png");
+	private ResourceLocation texturelast = new ResourceLocation(ModInfo.MODID + ":" + "textures/gui/guiPageDark.png");
 	
 	//holds race & class strings for display
-	public int page = 0;
-	public String chosenRace;
-	public String chosenClass;
+	private int page = 0;
+	private String chosenRace;
+	private String chosenClass;
 	
-	//holds starting value for skills
-	public int attStr = 10;
-	public int attDex = 10;
-	public int attCon = 10;
-	public int attInt = 10;
-	public int attWis = 10;
-	public int attCha = 10;
+	//holds values for attributes
+	private int attributes[] = {10, 10, 10, 10, 10, 10};
 	
 	//holds total pool of attribute points (or the number left after spending)
-	public int attPool = 72 - (attStr + attDex + attCon + attInt + attWis + attCha);
+	private int attPool = 72 - (attributes[0] + attributes[1] + attributes[2] + attributes[3] + attributes[4] + attributes[5]);
 	
 	//converts pool total to string for display
-	public String stringPool = String.valueOf(attPool);
+	private String stringPool = String.valueOf(attPool);
 	
 	//converts attribute totals to string for display
-	public String stringStr = String.valueOf(attStr);
-	public String stringDex = String.valueOf(attDex);
-	public String stringCon = String.valueOf(attCon);
-	public String stringInt = String.valueOf(attInt);
-	public String stringWis = String.valueOf(attWis);
-	public String stringCha = String.valueOf(attCha);
+	private String stringStr = String.valueOf(attributes[0]);
+	private String stringDex = String.valueOf(attributes[1]);
+	private String stringCon = String.valueOf(attributes[2]);
+	private String stringInt = String.valueOf(attributes[3]);
+	private String stringWis = String.valueOf(attributes[4]);
+	private String stringCha = String.valueOf(attributes[5]);
 	
-	//holds which skills are trained
-	public boolean trainAcro = false;
-	public boolean trainArca = false;
-	public boolean trainAthe = false;
-	public boolean trainBluf = false;
-	public boolean trainDipl = false;
-	public boolean trainDung = false;
-	public boolean trainEndu = false;
-	public boolean trainHeal = false;
-	public boolean trainHist = false;
-	public boolean trainInsi = false;
-	public boolean trainInti = false;
-	public boolean trainNatu = false;
-	public boolean trainPerc = false;
-	public boolean trainReli = false;
-	public boolean trainStea = false;
-	public boolean trainStre = false;
-	public boolean trainThie = false;
+	//holds which skills are trained: 
+	//									acrob, 	arcan, 	athel,
+	//									bluff, 	diplo, 	dunge,
+	//									endur, 	heal, 	histo,
+	//									insig, 	intim, 	natur,
+	//	 								perc, 	reli, 	stea,
+	//									stre, 	thie
+	
+	private boolean skillTraining[] = {	false, false, false, 
+										false, false, false,
+										false, false, false,
+										false, false, false, 
+										false, false, false,
+										false, false};
+
+	//holds skill modifiers after calculation ready for sync to CharacterInfo
+	private int skillMods[] = {	0,0,0,
+								0,0,0,
+								0,0,0,
+								0,0,0,
+								0,0,0,
+								0,0};
 	
 	public GuiCreate(InventoryPlayer invPlayer, World world, int x, int y, int z) 
 	{
@@ -182,6 +182,13 @@ public class GuiCreate extends GuiContainer
 		buttonList.add(new GuiButton(46, guiLeft + 15, guiTop + 170, 20, 20, "<"));
 		buttonList.add(new GuiButton(47, guiLeft + 140, guiTop + 170, 20, 20, ">"));
 	}
+
+	private boolean buttonEnabled[] = {	true,true,true,
+										true,true,true,
+										true,true,true,
+										true,true,true,
+										true,true,true,
+										true,true};
 	
 	//page 4 of gui
 	public void initGui4()
@@ -215,10 +222,10 @@ public class GuiCreate extends GuiContainer
 	public void initGui5()
 	{
 		super.initGui();
-		buttonList.clear();
-
-		buttonList.add(new GuiButton(67, guiLeft + 15, guiTop + 170, 60, 20, "Reset"));
-		buttonList.add(new GuiButton(68, guiLeft + 90, guiTop + 170, 60, 20, "Play"));
+		buttonList.clear();	
+		
+		buttonList.add(new GuiButton(67, guiLeft + 15, guiTop + 170, 40, 20, "Reset"));
+		buttonList.add(new GuiButton(68, guiLeft + 115, guiTop + 170, 40, 20, "Play"));
 	}
 	
 	
@@ -403,62 +410,80 @@ public class GuiCreate extends GuiContainer
 					break;		
 					
 			case 48:System.out.println("acro trained");
-					trainAcro = true;
+					skillTraining[0] = true;
 					break;
 			case 49:System.out.println("arca trained");
-					trainArca = true;
+					skillTraining[1] = true;
 					break;
 			case 50:System.out.println("athe trained");
-					trainAthe = true;
+					skillTraining[2] = true;
 					break;
 			case 51:System.out.println("bluf trained");
-					trainBluf = true;
+					skillTraining[3] = true;
 					break;
 			case 52:System.out.println("dipl trained");
-					trainDipl = true;
+					skillTraining[4] = true;
 					break;
 			case 53:System.out.println("dung trained");
-					trainDung = true;
+					skillTraining[5] = true;
 					break;
 			case 54:System.out.println("endu trained");
-					trainEndu = true;
+					skillTraining[6] = true;
 					break;
 			case 55:System.out.println("heal trained");		
-					trainHeal = true;
+					skillTraining[7] = true;
 					break;
 			case 56:System.out.println("hist trained");
-					trainHist = true;
+					skillTraining[8] = true;
 					break;
 			case 57:System.out.println("insi trained");
-					trainInsi = true;
+					skillTraining[9] = true;
 					break;
 			case 58:System.out.println("inti trained");
-					trainInti = true;
+					skillTraining[10] = true;
 					break;
 			case 59:System.out.println("natu trained");
-					trainNatu = true;
+					skillTraining[11] = true;
 					break;
 			case 60:System.out.println("perc trained");
-					trainPerc = true;
+					skillTraining[12] = true;
 					break;
 			case 61:System.out.println("reli trained");
-					trainReli = true;
+					skillTraining[13] = true;
 					break;
 			case 62:System.out.println("stea trained");
-					trainStea = true;
+					skillTraining[14] = true;
 					break;
 			case 63:System.out.println("stre trained");
-					trainStre = true;
+					skillTraining[15] = true;
 					break;
 			case 64:System.out.println("thie trained");
-					trainThie = true;
+					skillTraining[16] = true;
 					break;
 			
 			case 65:page = 3;
 					initGui3();
+					skillTraining[0] = false;
+					skillTraining[1] = false;
+					skillTraining[2] = false;
+					skillTraining[3] = false;
+					skillTraining[4] = false;
+					skillTraining[5] = false;
+					skillTraining[6] = false;
+					skillTraining[7] = false;
+					skillTraining[8] = false;
+					skillTraining[9] = false;
+					skillTraining[10] = false;
+					skillTraining[11] = false;
+					skillTraining[12] = false;
+					skillTraining[13] = false;
+					skillTraining[14] = false;
+					skillTraining[15] = false;
+					skillTraining[16] = false;
 					break;
 			case 66:page = 5;
 					initGui5();
+					calculateSkills();
 					break;
 			
 					
@@ -466,12 +491,29 @@ public class GuiCreate extends GuiContainer
 					initGui1();
 					chosenRace = "";
 					chosenClass = "";
-					attStr = 10;
-					attDex = 10;
-					attCon = 10;
-					attInt = 10;
-					attWis = 10;
-					attCha = 10;
+					attributes[0] = 10;
+					attributes[1] = 10;
+					attributes[2] = 10;
+					attributes[3] = 10;
+					attributes[4] = 10;
+					attributes[5] = 10;
+					skillTraining[0] = false;
+					skillTraining[1] = false;
+					skillTraining[2] = false;
+					skillTraining[3] = false;
+					skillTraining[4] = false;
+					skillTraining[5] = false;
+					skillTraining[6] = false;
+					skillTraining[7] = false;
+					skillTraining[8] = false;
+					skillTraining[9] = false;
+					skillTraining[10] = false;
+					skillTraining[11] = false;
+					skillTraining[12] = false;
+					skillTraining[13] = false;
+					skillTraining[14] = false;
+					skillTraining[15] = false;
+					skillTraining[16] = false;
 					
 					break;	
 			case 68:;
@@ -486,28 +528,34 @@ public class GuiCreate extends GuiContainer
 	{
 		if(page == 1)
 		{
-			fontRendererObj.drawString("Pick your Race:", 20, -10, 0x000000);
 		drawTextPage1();
 		}
 			else if (page == 2)
 			{
-				fontRendererObj.drawString("Pick your Class:", 20, -10, 0x000000);
 			drawTextPage1();
 			drawTextPage2();
 			}
 			else if (page == 3)
 			{
-				fontRendererObj.drawString("Pick your Stats:", 20, -10, 0x000000);				
 			drawTextPage1();
 			drawTextPage2();
 			drawTextPage3();
+				fontRendererObj.drawString("Points:", -70, 30, 0x505050);
+				fontRendererObj.drawString(stringPool, -30, 30, 0xffffff);
 			}
 			else if (page == 4)
 			{
-				fontRendererObj.drawString("Pick your Skills:", 20, -10, 0x000000);
-				fontRendererObj.drawString("Trained in:", 200, 30, 0x505050);
 				drawTextPage1();
 				drawTextPage2();
+				drawTextPage4();
+			}
+		
+			else if(page == 5)
+			{
+				//fontRendererObj.drawString("Review your Character:", 20, -10, 0x000000);
+				drawTextPage1();
+				drawTextPage2();
+				drawTextPage3();
 				drawTextPage4();
 			}
 		
@@ -520,7 +568,6 @@ public class GuiCreate extends GuiContainer
 	fontRendererObj.drawString(chosenRace, 235, -10, 0xffffff);
 	}
 		
-	
 	public void drawTextPage2()
 	{
 	fontRendererObj.drawString("Class:", 200, 10, 0x505050);
@@ -529,9 +576,6 @@ public class GuiCreate extends GuiContainer
 
 	public void drawTextPage3()
 	{	
-		fontRendererObj.drawString("Points:", -70, 30, 0x505050);
-		fontRendererObj.drawString(stringPool, -30, 30, 0xffffff);
-		
 	fontRendererObj.drawString("Strength:", 200, 30, 0x505050);
 	fontRendererObj.drawString(stringStr, 270, 30, 0xffffff);
 	
@@ -553,55 +597,102 @@ public class GuiCreate extends GuiContainer
 	
 	public void drawTextPage4()
 	{
-		if(trainAcro == true)
-	{fontRendererObj.drawString("Acrobatics", 	200, 50, 0xffffff);}
-		if(trainArca == true)
-	{fontRendererObj.drawString("Arcana", 		200, 60, 0xffffff);}
-		if(trainAthe == true)
-	{fontRendererObj.drawString("Atheletics", 	200, 70, 0xffffff);}
-		if(trainBluf == true)
-	{fontRendererObj.drawString("Bluff", 		200, 80, 0xffffff);}
-		if(trainDipl == true)
-	{fontRendererObj.drawString("Diplomacy",	200, 90, 0xffffff);}
-		if(trainDung == true)
-	{fontRendererObj.drawString("Dungeoneering",200, 100, 0xffffff);}
-		if(trainEndu == true)
-	{fontRendererObj.drawString("Endurance", 	200, 110, 0xffffff);}
-		if(trainHeal == true)
-	{fontRendererObj.drawString("Heal", 		200, 120, 0xffffff);}
-		if(trainHist == true)
-	{fontRendererObj.drawString("History", 		200, 130, 0xffffff);}
-		if(trainInsi == true)
-	{fontRendererObj.drawString("Insight", 		200, 140, 0xffffff);}
-		if(trainInti == true)
-	{fontRendererObj.drawString("Intimidate", 	200, 150, 0xffffff);}
-		if(trainNatu == true)
-	{fontRendererObj.drawString("Nature", 		200, 160, 0xffffff);}
-		if(trainPerc == true)
-	{fontRendererObj.drawString("Perception", 	200, 170, 0xffffff);}
-		if(trainReli == true)
-	{fontRendererObj.drawString("Religion", 	200, 180, 0xffffff);}
-		if(trainStea == true)
-	{fontRendererObj.drawString("Stealth", 		200, 190, 0xffffff);}
-		if(trainStre == true)
-	{fontRendererObj.drawString("Streetwise", 	200, 200, 0xffffff);}
-		if(trainThie == true)
-	{fontRendererObj.drawString("Thievery", 	200, 210, 0xffffff);}
+
+		fontRendererObj.drawString("Trained in:", -80, -10, 0x505050);
+		
+		if(skillTraining[0] == true)
+	{fontRendererObj.drawString("Acrobatics", 	-80, 10, 0xffffff);}
+		if(skillTraining[1] == true)
+	{fontRendererObj.drawString("Arcana", 		-80, 20, 0xffffff);}
+		if(skillTraining[2] == true)
+	{fontRendererObj.drawString("Atheletics", 	-80, 30, 0xffffff);}
+		if(skillTraining[3] == true)
+	{fontRendererObj.drawString("Bluff", 		-80, 40, 0xffffff);}
+		if(skillTraining[4] == true)
+	{fontRendererObj.drawString("Diplomacy",	-80, 50, 0xffffff);}
+		if(skillTraining[5] == true)
+	{fontRendererObj.drawString("Dungeoneering",-80, 60, 0xffffff);}
+		if(skillTraining[6] == true)
+	{fontRendererObj.drawString("Endurance", 	-80, 70, 0xffffff);}
+		if(skillTraining[7] == true)
+	{fontRendererObj.drawString("Heal", 		-80, 80, 0xffffff);}
+		if(skillTraining[8] == true)
+	{fontRendererObj.drawString("History", 		-80, 90, 0xffffff);}
+		if(skillTraining[9] == true)
+	{fontRendererObj.drawString("Insight", 		-80, 100, 0xffffff);}
+		if(skillTraining[10] == true)
+	{fontRendererObj.drawString("Intimidate", 	-80, 110, 0xffffff);}
+		if(skillTraining[11] == true)
+	{fontRendererObj.drawString("Nature", 		-80, 120, 0xffffff);}
+		if(skillTraining[12] == true)
+	{fontRendererObj.drawString("Perception", 	-80, 130, 0xffffff);}
+		if(skillTraining[13] == true)
+	{fontRendererObj.drawString("Religion", 	-80, 140, 0xffffff);}
+		if(skillTraining[14] == true)
+	{fontRendererObj.drawString("Stealth", 		-80, 150, 0xffffff);}
+		if(skillTraining[15] == true)
+	{fontRendererObj.drawString("Streetwise", 	-80, 160, 0xffffff);}
+		if(skillTraining[16] == true)
+	{fontRendererObj.drawString("Thievery", 	-80, 170, 0xffffff);}
+	}
+	
+	/** x size of the inventory window in pixels. Defined as float, passed as int */
+	private float xSize_lo;
+
+	/** y size of the inventory window in pixels. Defined as float, passed as int. */
+	private float ySize_lo;
+	
+	@Override
+	public void drawScreen(int mouseX, int mouseY, float partialTicks) 
+	{
+		super.drawScreen(mouseX, mouseY, partialTicks);
+		xSize_lo = mouseX;
+		ySize_lo = mouseY;
 	}
 			
-	
-	
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float var1,int var2, int var3) 
 	{
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		this.mc.renderEngine.bindTexture(texture);
+		
 		
 		int j = (width - xSize) / 2;
 		int k = (height - ySize) / 2;
+	
 		
-		this.drawTexturedModalRect(j, k, 0, 0, xSize, ySize);
+		if(page == 5)
+		{
+			this.mc.renderEngine.bindTexture(texturelast);
+			this.drawTexturedModalRect(j, k, 0, 0, xSize, ySize);
+		}
+		else
+		{
+			this.mc.renderEngine.bindTexture(textureblank);
+			this.drawTexturedModalRect(j, k, 0, 0, xSize, ySize);
+		}
+	
 	}
+	
+    public void calculateSkills()
+    {
+    	if (skillTraining[0] == true){skillMods[0] += 5;}
+    	if (skillTraining[1] == true){skillMods[1] += 5;}
+    	if (skillTraining[2] == true){skillMods[2] += 5;}
+    	if (skillTraining[3] == true){skillMods[3] += 5;}
+    	if (skillTraining[4] == true){skillMods[4] += 5;}
+    	if (skillTraining[5] == true){skillMods[5] += 5;}
+    	if (skillTraining[6] == true){skillMods[6] += 5;}
+    	if (skillTraining[7] == true){skillMods[7] += 5;}
+    	if (skillTraining[8] == true){skillMods[8] += 5;}
+    	if (skillTraining[9] == true){skillMods[9] += 5;}
+    	if (skillTraining[10] == true){skillMods[10] += 5;}
+    	if (skillTraining[11] == true){skillMods[11] += 5;}
+    	if (skillTraining[12] == true){skillMods[12] += 5;}
+    	if (skillTraining[13] == true){skillMods[13] += 5;}
+    	if (skillTraining[14] == true){skillMods[14] += 5;}
+    	if (skillTraining[15] == true){skillMods[15] += 5;}
+    	if (skillTraining[16] == true){skillMods[16] += 5;}
+    }
 
 	
 }

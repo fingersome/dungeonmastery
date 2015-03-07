@@ -7,43 +7,56 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
 
-public class ExtendedPlayer implements IExtendedEntityProperties
+public class CharacterInfo implements IExtendedEntityProperties
 {
 
 public final InventoryCharacter inventory = new InventoryCharacter();
 	
-public final static String CHAR_PROPS = "ExtendedPlayer";
+public final static String CHAR_PROPS = "CharacterInfo";
 private final EntityPlayer player;
 
+//variables to hold the character's level and current experience
+public int charLevel;
+public int charEXP;
+
 //variable to hold the character's race
-private String charRace;
+public String charRace[] = {};
 
 //variable to hold the character's class
-private String charClass;
+public String charClass[] = {};
 
 //an array that holds the character's attributes (str, dex, con, int, wis, cha)
-private double charAttributes[] = {};
+public double charAttributes[] = {0, 0, 0, 0, 0, 0};
 
 //variables to hold the amount of points spent in each attribute
-private double pointStr = charAttributes[1] - 10;
-private double pointDex = charAttributes[2] - 10;
-private double pointCon = charAttributes[3] - 10;
-private double pointInt = charAttributes[4] - 10;
-private double pointWis = charAttributes[5] - 10;
-private double pointCha = charAttributes[6] - 10;
+private double pointStr = charAttributes[0] - 10;
+private double pointDex = charAttributes[1] - 10;
+private double pointCon = charAttributes[2] - 10;
+private double pointInt = charAttributes[3] - 10;
+private double pointWis = charAttributes[4] - 10;
+private double pointCha = charAttributes[5] - 10;
 
 //variables to hold the modifier for each attribute, i.e half the points spent in the given attribute (rounded down)
-private int modStr = (int) Math.floor(pointStr / 2);
-private int modDex = (int) Math.floor(pointDex / 2);
-private int modCon = (int) Math.floor(pointCon / 2);
-private int modInt = (int) Math.floor(pointInt / 2);
-private int modWis = (int) Math.floor(pointWis / 2);
-private int modCha = (int) Math.floor(pointCha / 2);
+public int modStr = (int) Math.floor(pointStr / 2);
+public int modDex = (int) Math.floor(pointDex / 2);
+public int modCon = (int) Math.floor(pointCon / 2);
+public int modInt = (int) Math.floor(pointInt / 2);
+public int modWis = (int) Math.floor(pointWis / 2);
+public int modCha = (int) Math.floor(pointCha / 2);
 
-// an array that holds the character's trained skills 
-// (acrobatics, arcana, athletics, bluff, diplomacy, dungeoneering, endurance, 
-//	heal, history, insight, intimidate, nature, perception, religion, stealth, streetwise & thievery)
-private boolean charSkills[] = {};
+// an array that holds the character's skills: 
+// 							acro, arca, athle, 
+//							bluf, dipl, dung, 
+//							endu, heal, hist, 
+//							insi, inti, natu, 
+//							perc, reli, stea, 
+//							stre, thie
+public int charSkills[] = {0,0,0,
+							0,0,0,
+							0,0,0,
+							0,0,0,
+							0,0,0,
+							0,0};
 
 //variables to hold the current and maximum spells slots in each category of slot
 private int currentLesser, maxLesser;
@@ -55,7 +68,7 @@ private int currentDaily, maxDaily;
 
 public static final int SSLOT_WATCHER = 20;
 
-public ExtendedPlayer(EntityPlayer player)
+public CharacterInfo(EntityPlayer player)
 {
 this.player = player;
 
@@ -71,16 +84,16 @@ this.player.getDataWatcher().addObject(SSLOT_WATCHER, this.maxLesser);
 */
 public static final void register(EntityPlayer player)
 {
-player.registerExtendedProperties(ExtendedPlayer.CHAR_PROPS, new ExtendedPlayer(player));
+player.registerExtendedProperties(CharacterInfo.CHAR_PROPS, new CharacterInfo(player));
 }
 
 /**
 * Returns ExtendedPlayer properties for player
 * This method is for convenience only; it will make your code look nicer
 */
-public static final ExtendedPlayer get(EntityPlayer player)
+public static final CharacterInfo get(EntityPlayer player)
 {
-return (ExtendedPlayer) player.getExtendedProperties(CHAR_PROPS);
+return (CharacterInfo) player.getExtendedProperties(CHAR_PROPS);
 }
 
 @Override

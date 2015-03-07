@@ -2,7 +2,7 @@ package dungeonmastery.client.gui;
 
 import org.lwjgl.opengl.GL11;
 
-import dungeonmastery.entity.ExtendedPlayer;
+import dungeonmastery.entity.CharacterInfo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.util.ResourceLocation;
@@ -60,7 +60,7 @@ public void onRenderExperienceBar(RenderGameOverlayEvent event)
 /** Start of my tutorial */
 
 // Get our extended player properties and assign it locally so we can easily access it
-ExtendedPlayer props = ExtendedPlayer.get(this.mc.thePlayer);
+CharacterInfo props = CharacterInfo.get(this.mc.thePlayer);
 
 // If for some reason these properties don't exist (perhaps in multiplayer?)
 // or the player doesn't have mana, return. Note that I added a new method

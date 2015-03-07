@@ -3,7 +3,7 @@ package dungeonmastery.client.gui;
 import dungeonmastery.DungeonMastery;
 import dungeonmastery.container.ContainerCharacterInv;
 import dungeonmastery.container.ContainerDungeonBook;
-import dungeonmastery.entity.ExtendedPlayer;
+import dungeonmastery.entity.CharacterInfo;
 import dungeonmastery.inventory.InventoryCharacter;
 import dungeonmastery.tile.TileEntityDungeonBook;
 import net.minecraft.entity.player.EntityPlayer;
@@ -27,7 +27,7 @@ public class GuiHandler implements IGuiHandler
 		switch(ID) 
 		{
 		case 0: return new ContainerDungeonBook(player.inventory, world, x, y, z);
-		case 1: return new ContainerCharacterInv(player, player.inventory, ExtendedPlayer.get(player).inventory);
+		case 1: return new ContainerCharacterInv(player, player.inventory, CharacterInfo.get(player).inventory);
 		}
 		
 		return null;
@@ -39,7 +39,7 @@ public class GuiHandler implements IGuiHandler
 		switch(ID) 
 		{
 		case 0: return new GuiCreate(player.inventory, world, x, y, z);
-		case 1: return new GuiCharacterInventory(player, player.inventory, ExtendedPlayer.get(player).inventory);
+		case 1: return new GuiCharacterInventory(player, player.inventory, CharacterInfo.get(player).inventory);
 		}
 
 		return null;

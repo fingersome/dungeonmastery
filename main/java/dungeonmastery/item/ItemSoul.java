@@ -2,7 +2,7 @@ package dungeonmastery.item;
 
 import dungeonmastery.DungeonMastery;
 import dungeonmastery.ModInfo;
-import dungeonmastery.entity.ExtendedPlayer;
+import dungeonmastery.entity.CharacterInfo;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
@@ -35,7 +35,7 @@ public class ItemSoul extends Item
 		if (!world.isRemote)
 		{
 
-		ExtendedPlayer props = ExtendedPlayer.get(player);
+		CharacterInfo props = CharacterInfo.get(player);
 		int cost = 1;
 	
 		// Here we'll use the method we made to see if the player has enough slots to do something

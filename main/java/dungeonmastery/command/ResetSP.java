@@ -1,6 +1,6 @@
 package dungeonmastery.command;
 
-import dungeonmastery.entity.ExtendedPlayer;
+import dungeonmastery.entity.CharacterInfo;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -27,7 +27,7 @@ public class ResetSP extends CommandBase
 	{
 		EntityPlayerMP commandSender = CommandBase.getCommandSenderAsPlayer(sender);
 		
-		ExtendedPlayer.get(commandSender).replenishSlots();
+		CharacterInfo.get(commandSender).replenishSlots();
 		System.out.println("command sent");
 	}
 

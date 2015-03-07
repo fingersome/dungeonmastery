@@ -12,7 +12,7 @@ import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import dungeonmastery.DungeonMastery;
-import dungeonmastery.entity.ExtendedPlayer;
+import dungeonmastery.entity.CharacterInfo;
 import dungeonmastery.item.ItemList;
 import dungeonmastery.item.ItemSoul;
 
@@ -23,10 +23,10 @@ public class DMEventHandler
 	{
 		if (event.entity instanceof EntityPlayer) 
 		{
-			if (ExtendedPlayer.get((EntityPlayer) event.entity) == null) 
+			if (CharacterInfo.get((EntityPlayer) event.entity) == null) 
 			{
 				DungeonMastery.logger.info("Registering extended properties for player");
-				ExtendedPlayer.register((EntityPlayer) event.entity);
+				CharacterInfo.register((EntityPlayer) event.entity);
 			}
 		}
 	}
@@ -41,7 +41,7 @@ public class DMEventHandler
 			if (player.isPlayerFullyAsleep()) 
 			{
 				player.addChatMessage(new ChatComponentText("Ah, a full nights sleep and I feel rested, and ready for adventure!"));
-				ExtendedPlayer.get(player).replenishSlots();
+				CharacterInfo.get(player).replenishSlots();
 			}
 		}
 	}

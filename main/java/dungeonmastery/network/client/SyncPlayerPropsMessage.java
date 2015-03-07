@@ -7,7 +7,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.relauncher.Side;
 import dungeonmastery.DungeonMastery;
-import dungeonmastery.entity.ExtendedPlayer;
+import dungeonmastery.entity.CharacterInfo;
 import dungeonmastery.network.AbstractMessage.AbstractClientMessage;
 
 /**
@@ -49,7 +49,7 @@ public class SyncPlayerPropsMessage extends AbstractClientMessage<SyncPlayerProp
 		characterdata = new NBTTagCompound();
 		
 		// and save our player's data into it
-		ExtendedPlayer.get(player).saveNBTData(characterdata);
+		CharacterInfo.get(player).saveNBTData(characterdata);
 	}
 
 	@Override
@@ -69,6 +69,6 @@ public class SyncPlayerPropsMessage extends AbstractClientMessage<SyncPlayerProp
 	{
 		// now we can just load the NBTTagCompound data directly; one and done, folks
 		DungeonMastery.logger.info("Synchronizing extended properties data on CLIENT");
-		ExtendedPlayer.get(player).loadNBTData(characterdata);
+		CharacterInfo.get(player).loadNBTData(characterdata);
 	}
 }
