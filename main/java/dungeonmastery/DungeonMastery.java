@@ -24,7 +24,7 @@ import dungeonmastery.block.BlockDevice;
 import dungeonmastery.block.BlockInfo;
 import dungeonmastery.block.BlockList;
 import dungeonmastery.client.gui.GuiHandler;
-import dungeonmastery.command.Rest;
+import dungeonmastery.command.ResetSP;
 import dungeonmastery.command.RollDice;
 import dungeonmastery.config.ConfigHandler;
 import dungeonmastery.event.DMEventHandler;
@@ -114,6 +114,6 @@ public class DungeonMastery
 	public void ServerStart(FMLServerStartingEvent event)
 	{
 		event.registerServerCommand(new RollDice());
-		event.registerServerCommand(new Rest());
+		event.registerServerCommand(new ResetSP());
 	}
 }

@@ -26,17 +26,17 @@ public class GuiCreate extends GuiContainer
 	private ResourceLocation texture = new ResourceLocation(ModInfo.MODID + ":" + "textures/gui/guiPage.png");
 	
 	//holds race & class strings for display
+	public int page = 0;
 	public String chosenRace;
 	public String chosenClass;
-	public boolean isCharacter;
 	
 	//holds starting value for skills
-	public int attStr;
-	public int attDex;
-	public int attCon;
-	public int attInt;
-	public int attWis;
-	public int attCha;
+	public int attStr = 10;
+	public int attDex = 10;
+	public int attCon = 10;
+	public int attInt = 10;
+	public int attWis = 10;
+	public int attCha = 10;
 	
 	//holds total pool of attribute points (or the number left after spending)
 	public int attPool = 72 - (attStr + attDex + attCon + attInt + attWis + attCha);
@@ -57,24 +57,19 @@ public class GuiCreate extends GuiContainer
 		super(new ContainerDungeonBook(invPlayer, world, x, y, z));
 	}
 
+		
 	@Override
 	public void initGui()
 	{
-		super.initGui();
-		
-		
+		super.initGui();	
 		buttonList.clear();
 		
-		buttonList.add(new GuiButton(0, guiLeft + 26, guiTop + 50, 120, 20, "Create a Character"));
-		
-		GuiButton dmButton = new GuiButton(1, guiLeft + 26, guiTop + 80, 120, 20, "Manage a Campaign");
-		//dmButton.enabled = false;
-		buttonList.add(dmButton);
+		buttonList.add(new GuiButton(0, guiLeft + 28, guiTop, 120, 20, "Create a Character"));
 		
 	}
 	
-	//page 2 of gui
-	public void initGui2()
+	//page 1 of gui
+	public void initGui1()
 	{
 		super.initGui();
 		
@@ -91,8 +86,8 @@ public class GuiCreate extends GuiContainer
 		
 	}
 	
-	//page 3 of gui
-	public void initGui3()
+	//page 2 of gui
+	public void initGui2()
 	{
 		super.initGui();
 		
@@ -112,27 +107,56 @@ public class GuiCreate extends GuiContainer
 	}
 	
 	
+	//page 3 of gui
+	public void initGui3()
+	{
+		super.initGui();
+		buttonList.clear();
+		
+		buttonList.add(new GuiButton(19, guiLeft + 130, guiTop + 10, 20, 20, "+"));
+		buttonList.add(new GuiButton(20, guiLeft + 100, guiTop + 10, 20, 20, "-"));
+		buttonList.add(new GuiButton(21, guiLeft + 130, guiTop + 35, 20, 20, "+"));
+		buttonList.add(new GuiButton(22, guiLeft + 100, guiTop + 35, 20, 20, "-"));
+		buttonList.add(new GuiButton(23, guiLeft + 130, guiTop + 60, 20, 20, "+"));
+		buttonList.add(new GuiButton(24, guiLeft + 100, guiTop + 60, 20, 20, "-"));
+		buttonList.add(new GuiButton(25, guiLeft + 130, guiTop + 85, 20, 20, "+"));
+		buttonList.add(new GuiButton(26, guiLeft + 100, guiTop + 85, 20, 20, "-"));
+		buttonList.add(new GuiButton(27, guiLeft + 130, guiTop + 110, 20, 20, "+"));
+		buttonList.add(new GuiButton(28, guiLeft + 100, guiTop + 110, 20, 20, "-"));
+		buttonList.add(new GuiButton(29, guiLeft + 130, guiTop + 135, 20, 20, "+"));
+		buttonList.add(new GuiButton(30, guiLeft + 100, guiTop + 135, 20, 20, "-"));
+
+		buttonList.add(new GuiButton(31, guiLeft + 12, guiTop + 170, 20, 20, "<"));
+		buttonList.add(new GuiButton(32, guiLeft + 140, guiTop + 170, 20, 20, ">"));
+		
+	}
+	
 	//page 4 of gui
 	public void initGui4()
 	{
 		super.initGui();
 		buttonList.clear();
 		
-		buttonList.add(new GuiButton(19, guiLeft + 90, guiTop + 10, 20, 20, "+"));
-		buttonList.add(new GuiButton(20, guiLeft + 60, guiTop + 10, 20, 20, "-"));
-		buttonList.add(new GuiButton(21, guiLeft + 90, guiTop + 35, 20, 20, "+"));
-		buttonList.add(new GuiButton(22, guiLeft + 60, guiTop + 35, 20, 20, "-"));
-		buttonList.add(new GuiButton(23, guiLeft + 90, guiTop + 60, 20, 20, "+"));
-		buttonList.add(new GuiButton(24, guiLeft + 60, guiTop + 60, 20, 20, "-"));
-		buttonList.add(new GuiButton(25, guiLeft + 90, guiTop + 85, 20, 20, "+"));
-		buttonList.add(new GuiButton(26, guiLeft + 60, guiTop + 85, 20, 20, "-"));
-		buttonList.add(new GuiButton(27, guiLeft + 90, guiTop + 110, 20, 20, "+"));
-		buttonList.add(new GuiButton(28, guiLeft + 60, guiTop + 110, 20, 20, "-"));
-		buttonList.add(new GuiButton(29, guiLeft + 90, guiTop + 135, 20, 20, "+"));
-		buttonList.add(new GuiButton(30, guiLeft + 60, guiTop + 135, 20, 20, "-"));
+		buttonList.add(new GuiButton(33, guiLeft + 90, guiTop + 10, 80, 20, "Acrobatics"));
+		buttonList.add(new GuiButton(34, guiLeft + 90, guiTop + 35, 80, 20, "Arcana"));
+		buttonList.add(new GuiButton(35, guiLeft + 90, guiTop + 60, 80, 20, "Atheletics"));
+		buttonList.add(new GuiButton(36, guiLeft + 90, guiTop + 85, 80, 20, "Bluff"));
+		buttonList.add(new GuiButton(37, guiLeft + 90, guiTop + 110, 80, 20, "Diplomacy"));
+		buttonList.add(new GuiButton(38, guiLeft + 90, guiTop + 135, 80, 20, "Dungeoneering"));
+		buttonList.add(new GuiButton(39, guiLeft + 90, guiTop + 135, 80, 20, "Endurance"));
+		buttonList.add(new GuiButton(40, guiLeft + 90, guiTop + 135, 80, 20, "Heal"));
+		buttonList.add(new GuiButton(41, guiLeft + 90, guiTop + 135, 80, 20, "History"));
+		buttonList.add(new GuiButton(42, guiLeft + 90, guiTop + 135, 80, 20, "Insight"));
+		buttonList.add(new GuiButton(43, guiLeft + 90, guiTop + 135, 80, 20, "Intimidate"));
+		buttonList.add(new GuiButton(44, guiLeft + 90, guiTop + 135, 80, 20, "Nature"));
+		buttonList.add(new GuiButton(45, guiLeft + 90, guiTop + 135, 80, 20, "Perception"));
+		buttonList.add(new GuiButton(46, guiLeft + 90, guiTop + 135, 80, 20, "Religion"));
+		buttonList.add(new GuiButton(47, guiLeft + 90, guiTop + 135, 80, 20, "Stealth"));
+		buttonList.add(new GuiButton(48, guiLeft + 90, guiTop + 135, 80, 20, "Streetwise"));
+		buttonList.add(new GuiButton(49, guiLeft + 90, guiTop + 135, 80, 20, "Thievery"));
 
-		buttonList.add(new GuiButton(31, guiLeft + 12, guiTop + 170, 20, 20, "<"));
-		buttonList.add(new GuiButton(32, guiLeft + 140, guiTop + 170, 20, 20, ">"));
+		buttonList.add(new GuiButton(50, guiLeft + 12, guiTop + 170, 20, 20, "<"));
+		buttonList.add(new GuiButton(51, guiLeft + 140, guiTop + 170, 20, 20, ">"));
 		
 	}
 	
@@ -142,8 +166,8 @@ public class GuiCreate extends GuiContainer
 		super.initGui();
 		buttonList.clear();
 
-		buttonList.add(new GuiButton(33, guiLeft + 12, guiTop + 170, 60, 20, "Reset"));
-		buttonList.add(new GuiButton(34, guiLeft + 100, guiTop + 170, 60, 20, "Play"));
+		buttonList.add(new GuiButton(52, guiLeft + 12, guiTop + 170, 60, 20, "Reset"));
+		buttonList.add(new GuiButton(53, guiLeft + 100, guiTop + 170, 60, 20, "Play"));
 		
 	}
 	
@@ -157,62 +181,83 @@ public class GuiCreate extends GuiContainer
 		
 		switch(button.id)
 		{
-			case 0:	initGui2();
-					isCharacter = true;
+			case 0:	page = 1;
+					initGui1();
 					break;
-			case 1:	Minecraft.getMinecraft().displayGuiScreen(null);
+					
+			case 1:	;
 					break;
+					
+					
 			case 2: chosenRace = "Dragonborn";
-					initGui3();	
+					page = 2;
+					initGui2();	
 					break;
 			case 3: chosenRace = "Dwarf";
-					initGui3();	
+					page = 2;
+					initGui2();	
 					break;
 			case 4: chosenRace = "Eladrin";
-					initGui3();	
+					page = 2;
+					initGui2();	
 					break;
 			case 5: chosenRace = "Elf";
-					initGui3();	
+					page = 2;
+					initGui2();	
 					break;
 			case 6: chosenRace = "Half-elf";
-					initGui3();	
+					page = 2;
+					initGui2();	
 					break;
 			case 7: chosenRace = "Halfling";
-					initGui3();	
+					page = 2;
+					initGui2();	
 					break;
 			case 8: chosenRace = "Human";
-					initGui3();	
+					page = 2;
+					initGui2();	
 					break;
 			case 9: chosenRace = "Tiefling";
-					initGui3();	
+					page = 2;
+					initGui2();			
 					break;
 					
 			case 10: chosenClass = "Cleric";
-					initGui4();
+					page = 3;
+					initGui3();
 					break;					
 			case 11: chosenClass = "Fighter";
-					initGui4();
+					page = 3;
+					initGui3();
 					break;					
 			case 12:chosenClass = "Paladin";
-					initGui4();
+					page = 3;
+					initGui3();
 					break;					
 			case 13:chosenClass = "Ranger";
-					initGui4();
+					page = 3;
+					initGui3();
 					break;					
 			case 14:chosenClass = "Rogue";
-					initGui4();
+					page = 3;
+					initGui3();
 					break;					
 			case 15:chosenClass = "Warlock";
-					initGui4();					
+					page = 3;
+					initGui3();	
 					break;					
 			case 16:chosenClass = "Warlord";
-					initGui4();
+					page = 3;
+					initGui3();
 					break;					
 			case 17:chosenClass = "Wizard";
-					initGui4();
+					page = 3;
+					initGui3();
 					break;
-			case 18:initGui2();
-					chosenRace = "";
+					
+			case 18:chosenRace = "";
+					page = 1;
+					initGui1();
 					break;	
 					
 			case 19:System.out.println("str up");
@@ -240,13 +285,59 @@ public class GuiCreate extends GuiContainer
 			case 30:System.out.println("cha down");
 					break;
 					
-			case 31:initGui3();
-					chosenClass = "";
+			case 31:chosenClass = "";
+					page = 2;
+					initGui2();
 					break;	
-			case 32:initGui5();
+			case 32:page = 5;
+					initGui5();
 					break;		
 					
-			case 33:initGui2();
+			case 33:System.out.println("acro trained");
+					break;
+			case 34:System.out.println("arca trained");
+					break;
+			case 35:System.out.println("athe trained");
+					break;
+			case 36:System.out.println("bluf trained");
+					break;
+			case 37:System.out.println("dipl trained");
+					break;
+			case 38:System.out.println("dung trained");
+					break;
+			case 39:System.out.println("endu trained");
+					break;
+			case 40:System.out.println("heal trained");
+					break;
+			case 41:System.out.println("hist trained");
+					break;
+			case 42:System.out.println("insi trained");
+					break;
+			case 43:System.out.println("inti trained");
+					break;
+			case 44:System.out.println("natu trained");
+					break;
+			case 45:System.out.println("perc trained");
+					break;
+			case 46:System.out.println("reli trained");
+					break;
+			case 47:System.out.println("stea trained");
+					break;
+			case 48:System.out.println("stre trained");
+					break;
+			case 49:System.out.println("thie trained");
+					break;
+			
+			case 50:page = 4;
+					initGui4();
+					break;
+			case 51:page = 5;
+					initGui5();
+					break;
+			
+					
+			case 52:page = 1;
+					initGui1();
 					chosenRace = "";
 					chosenClass = "";
 					attStr = 10;
@@ -257,51 +348,83 @@ public class GuiCreate extends GuiContainer
 					attCha = 10;
 					
 					break;	
-			case 34: ;
+			case 53:;
 					break;	
 					
-			default: ;
+			default:;
 		}		
 	}
 	
 	@Override
 	protected void drawGuiContainerForegroundLayer(int i, int j)
 	{
-		
-			if(isCharacter == true)
+		if(page == 1)
+		{
+			fontRendererObj.drawString("Pick a Race:", 20, -10, 0x000000);
+		drawTextPage1();
+		}
+			else if (page == 2)
 			{
-			fontRendererObj.drawString("Create a Character", 40, -10, 0x000000);
+				fontRendererObj.drawString("Pick a Class:", 20, -10, 0x000000);
+			drawTextPage1();
+			drawTextPage2();
 			}
-			
-			fontRendererObj.drawString("Race:", 200, -10, 0x505050);
-			fontRendererObj.drawString(chosenRace, 235, -10, 0xffffff);
-			
-			fontRendererObj.drawString("Class:", 200, 10, 0x505050);
-			fontRendererObj.drawString(chosenClass, 235, 10, 0xffffff);
+			else if (page == 3)
+			{
+				fontRendererObj.drawString("Pick your Stats:", 20, -10, 0x000000);
+			drawTextPage1();
+			drawTextPage2();
+			drawTextPage3();
+			}
+		
+	}
+	
+	
+	public void drawTextPage1()
+	{
+	fontRendererObj.drawString("Race:", 200, -10, 0x505050);
+	fontRendererObj.drawString(chosenRace, 235, -10, 0xffffff);
+	}
+		
+	
+	public void drawTextPage2()
+	{
+	fontRendererObj.drawString("Class:", 200, 10, 0x505050);
+	fontRendererObj.drawString(chosenClass, 235, 10, 0xffffff);
+	}
 
-			fontRendererObj.drawString("Points:", -70, 30, 0x505050);
-			fontRendererObj.drawString(stringPool, -30, 30, 0xffffff);
-			
-			fontRendererObj.drawString("Strength:", 200, 30, 0x505050);
-			fontRendererObj.drawString(stringStr, 270, 30, 0xffffff);
-			
-			fontRendererObj.drawString("Dexterity:", 200, 50, 0x505050);
-			fontRendererObj.drawString(stringDex, 270, 50, 0xffffff);
-			
-			fontRendererObj.drawString("Constitution:", 200, 70, 0x505050);
-			fontRendererObj.drawString(stringCon, 270, 70, 0xffffff);
+	public void drawTextPage3()
+	{
+	
+	fontRendererObj.drawString("Points:", -70, 30, 0x505050);
+	fontRendererObj.drawString(stringPool, -30, 30, 0xffffff);
 
-			fontRendererObj.drawString("Intellect:", 200, 90, 0x505050);
-			fontRendererObj.drawString(stringInt, 270, 90, 0xffffff);
+	fontRendererObj.drawString("Strength", 20, 15, 0x940000);
+	fontRendererObj.drawString("Dexterity", 20, 40, 0x127A00);
+	fontRendererObj.drawString("Constitution", 20, 65, 0xB35F00);
+	fontRendererObj.drawString("Intellect", 20, 90, 0x0054B5);
+	fontRendererObj.drawString("Wisdom", 20, 115, 0x60008C);
+	fontRendererObj.drawString("Charisma", 20, 140, 0xD9009F);
+	
+	fontRendererObj.drawString("Strength:", 200, 30, 0x505050);
+	fontRendererObj.drawString(stringStr, 270, 30, 0xffffff);
+	
+	fontRendererObj.drawString("Dexterity:", 200, 50, 0x505050);
+	fontRendererObj.drawString(stringDex, 270, 50, 0xffffff);
+	
+	fontRendererObj.drawString("Constitution:", 200, 70, 0x505050);
+	fontRendererObj.drawString(stringCon, 270, 70, 0xffffff);
 
-			fontRendererObj.drawString("Wisdom:", 200, 110, 0x505050);
-			fontRendererObj.drawString(stringWis, 270, 110, 0xffffff);
+	fontRendererObj.drawString("Intellect:", 200, 90, 0x505050);
+	fontRendererObj.drawString(stringInt, 270, 90, 0xffffff);
 
-			fontRendererObj.drawString("Charisma:", 200, 130, 0x505050);
-			fontRendererObj.drawString(stringCha, 270, 130, 0xffffff);
+	fontRendererObj.drawString("Wisdom:", 200, 110, 0x505050);
+	fontRendererObj.drawString(stringWis, 270, 110, 0xffffff);
+
+	fontRendererObj.drawString("Charisma:", 200, 130, 0x505050);
+	fontRendererObj.drawString(stringCha, 270, 130, 0xffffff);
+	}
 			
-			
-	}	
 	
 	
 	@Override

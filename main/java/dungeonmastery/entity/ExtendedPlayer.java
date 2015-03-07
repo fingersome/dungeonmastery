@@ -14,13 +14,60 @@ public final InventoryCharacter inventory = new InventoryCharacter();
 	
 public final static String CHAR_PROPS = "ExtendedPlayer";
 private final EntityPlayer player;
+
+private boolean raceDragonborn;
+private boolean raceDwarf;
+private boolean raceEladrin;
+private boolean raceElf;
+private boolean raceHalfElf;
+private boolean raceHalfling;
+private boolean raceHuman;
+private boolean raceTiefling;
+
+private boolean classCleric;
+private boolean classFighter;
+private boolean classPaladin;
+private boolean classRanger;
+private boolean classWarlock;
+private boolean classWarlord;
+private boolean classWizard;
+
+private double attStr;
+private double attDex;
+private double attCon;
+private double attInt;
+private double attWis;
+private double attCha;
+
+private double pointStr = attStr - 10;
+private double pointDex = attDex - 10;
+private double pointCon = attCon - 10;
+private double pointInt = attInt - 10;
+private double pointWis = attWis - 10;
+private double pointCha = attCha - 10;
+
+private int modStr = (int) Math.floor(pointStr / 2);
+private int modDex = (int) Math.floor(pointDex / 2);
+private int modCon = (int) Math.floor(pointCon / 2);
+private int modInt = (int) Math.floor(pointInt / 2);
+private int modWis = (int) Math.floor(pointWis / 2);
+private int modCha = (int) Math.floor(pointCha / 2);
+
+
+
 private int currentLesser, maxLesser;
+private int currentMinor, maxMinor;
+private int currentSmall, maxSmall;
+private int currentStandard, maxStandard;
+private int currentGreater, maxGreater;
+private int currentDaily, maxDaily;
 
 public static final int SSLOT_WATCHER = 20;
 
 public ExtendedPlayer(EntityPlayer player)
 {
 this.player = player;
+
 this.maxLesser = 4;
 this.player.getDataWatcher().addObject(SSLOT_WATCHER, this.maxLesser);
 

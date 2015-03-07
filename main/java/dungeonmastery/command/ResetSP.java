@@ -12,7 +12,7 @@ public class ResetSP extends CommandBase
 	@Override
 	public String getName() 
 	{
-		return "spreset";
+		return "resetsp";
 	}
 
 	@Override
